@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public class TestSelenium {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("webdriver.gecko.driver", "/users/<replaceme>/Downloads/geckodriver/geckodriver");
-        System.setProperty("webdriver.chrome.driver", "/users/<replaceme>/Downloads/chromedriver");
+        System.setProperty("webdriver.gecko.driver", "/users/replaceme/Downloads/geckodriver/geckodriver");
+        System.setProperty("webdriver.chrome.driver", "/users/replaceme/Downloads/chromedriver");
         ChromeDriver driver = new ChromeDriver();
 
         // Navigate to a web page
@@ -56,8 +56,8 @@ public class TestSelenium {
                 assignedTo.sendKeys(Keys.TAB);
 
                 WebElement affectedCi = driver.findElement(By.id("sys_display.incident.cmdb_ci"));
-                //affectedCi.clear();
-                affectedCi.sendKeys("Nagios");
+                affectedCi.clear();
+                affectedCi.sendKeys("Order Service (Sourcing)"); //replaceme
                 //affectedCi.sendKeys(Keys.TAB);
                 Thread.sleep(1000);
 
