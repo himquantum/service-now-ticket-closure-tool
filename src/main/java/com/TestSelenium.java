@@ -42,14 +42,7 @@ public class TestSelenium {
             if (incident.isPresent()) {
                 driver.get(incident.get().getAttribute("href"));
 
-                WebElement incidentState = driver.findElement(By.id("incident.state"));
-                List<WebElement> options = incidentState.findElements(By.tagName("option"));
-                for (WebElement option : options) {
-                    if (option.getText().equals("Resolved")) {
-                        option.click();
-                        break;
-                    }
-                }
+                selectValue(driver, "incident.state", "Resolved");
 
                 WebElement assignedTo = driver.findElement(By.id("sys_display.incident.assigned_to"));
                 assignedTo.sendKeys("mu3o2l2");
@@ -77,44 +70,17 @@ public class TestSelenium {
 
                 Thread.sleep(1000);
 
-                WebElement responseType = driver.findElement(By.id("incident.u_response_type"));
-                List<WebElement> responseTypeOptions = responseType.findElements(By.tagName("option"));
-                for (WebElement option : responseTypeOptions) {
-                    if (option.getText().equals("Reactive")) {
-                        option.click();
-                        break;
-                    }
-                }
+                selectValue(driver, "incident.u_response_type", "Reactive");
 
-                WebElement appOrInfra = driver.findElement(By.id("incident.u_app_infra"));
-                List<WebElement> appOrInfraOptions = appOrInfra.findElements(By.tagName("option"));
-                for (WebElement option : appOrInfraOptions) {
-                    if (option.getText().equals("App")) {
-                        option.click();
-                        break;
-                    }
-                }
+                selectValue(driver, "incident.u_app_infra", "App");
 
                 List<WebElement> tabs = driver.findElementsByClassName("tab_caption_text");
                 tabs.get(4).click();
 
-                WebElement closeCode = driver.findElement(By.id("incident.close_code"));
-                List<WebElement> closeCodeOptions = closeCode.findElements(By.tagName("option"));
-                for (WebElement option : closeCodeOptions) {
-                    if (option.getText().equals("No Action Required")) {
-                        option.click();
-                        break;
-                    }
-                }
+                selectValue(driver, "incident.close_code", "No Action Required");
 
-                WebElement rootCauseCode = driver.findElement(By.id("incident.u_root_cause_code"));
-                List<WebElement> rootCauseCodeOptions = rootCauseCode.findElements(By.tagName("option"));
-                for (WebElement option : rootCauseCodeOptions) {
-                    if (option.getText().equals("Working as Designed")) {
-                        option.click();
-                        break;
-                    }
-                }
+                selectValue(driver, "incident.u_root_cause_code", "Working as Designed");
+
 
                 WebElement closeNotes = driver.findElement(By.id("incident.close_notes"));
                 closeNotes.sendKeys("no action required");
@@ -132,5 +98,16 @@ public class TestSelenium {
         }
         // Conclude a test
         // driver.quit();
+    }
+
+    private static void selectValue(ChromeDriver driver, String fieldName, String fieldValue) {
+        WebElement selectionBox = driver.findElement(By.id(fieldName));
+        List<WebElement> options = selectionBox.findElements(By.tagName("option"));
+        for (WebElement option : options) {
+            if (option.getText().equals(fieldValue)) {
+                option.click();
+                break;
+            }
+        }
     }
 }
